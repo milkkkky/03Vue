@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul> -->
+        <ul>
+            <!-- <li v-for="(value,index) in list">{{index}}--{{value}}</li> -->
+             <!-- <li v-for="(value,index) in 'list'">{{index}}--{{value}}</li> -->
+             <!-- <li v-for="(value,index) in 6">{{index}}--{{value}}</li> -->
+             <li v-for="(value,key) in obj">{{key}}--{{value}}</li>
+
+
+        </ul>
+    </div>
+    <script>
+        let vue = new Vue({
+            el:"#app",
+            data:{
+                list:["张三","李四","王五"],
+                obj:{
+                    name:"lnj",
+                    age:33,
+                    gender:"man",
+                    class:"abc"
+                }
+            }
+        })
+    </script>
+</body>
+</html>

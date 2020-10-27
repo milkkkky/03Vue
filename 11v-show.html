@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <p v-show="show">我是true</p>
+        <p v-show="hidden">我是false</p> -->
+        <!-- <p v-show="true">我是true</p>
+        <p v-show="false">我是false</p> -->
+        <!-- <p v-show="age>=18">我是true</p>
+        <p v-show="age<18">我是false</p> -->
+        <p v-if="show">我是段落</p>
+        <p v-if="hidden">我是段落2</p>
+    </div>
+    <script>
+        let vue = new Vue({
+            el:"#app",
+            data:{
+                show:true,
+                hidden:false,
+                age:18
+            }
+        })
+    </script>
+</body>
+</html>
