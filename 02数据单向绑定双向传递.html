@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        MVVM模式
+        M
+        V
+        VM
+
+        MVVM最大的特点就是支持数据的双向传递
+     -->
+     <div id="app">
+         <p v-once>原始数据: {{name}}</p>
+         <p>当前数据：{{name}}</p>
+         <input type="text" v-model="msg">
+     </div>
+     <script>
+         let vue = new Vue({
+             el:'#app',
+             data:{
+                 name:"lnj",
+                 msg:"123"
+             }
+         })
+     </script>
+</body>
+</html>

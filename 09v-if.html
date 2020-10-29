@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <p v-if="show">我是true</p>
+        <p v-show="hidden">我是false</p> -->
+        <!-- <p v-if="age>=18">我是true</p>
+        <p v-if="age<18">我是false</p> -->
+        <!-- <p v-if="age>=18">成年人</p>
+        <p v-else>未成年人</p> -->
+        <p v-if="score>=80">优秀</p>
+        <p v-else-if="score>=60">良好</p>
+        <p v-else>一般</p>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        let vue=new Vue({
+            el:"#app",
+            data:{
+                show:true,
+                hidden:false,
+                age:17,
+                score:80
+            }
+        })
+    </script>
+</body>
+</html>

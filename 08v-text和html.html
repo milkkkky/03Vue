@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body>
+   
+    <div id="app">
+         <!-- 插值的方式：可以将指定的数据插入到指定的位置 -->
+        <!-- <p>+++++{{ name }}++++</p> -->
+        <!-- 插值的方式不会解析html -->
+        <!-- <p>+++++{{ msg }}++++</p> -->
+        <!-- v-text 会覆盖原有的内容 -->
+        <!-- <p v-text="name">++++++++</p> -->
+        <!-- 不会解析html -->
+        <!-- <p v-text="msg">++++++++</p> -->
+        <!-- v-html 会覆盖原有的内容 -->
+        <p v-html="name">++++++++</p>
+        <!-- 会解析html -->
+        <p v-html="msg">++++++++</p>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+        let vue = new Vue({
+             el:'#app',
+             data:{
+                name:"lnj",
+                msg:"<span>我是span</span>"
+            }
+        })
+    </script>
+</body>
+</html>
