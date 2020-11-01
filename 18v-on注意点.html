@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="myFn('lnj',33,$event)">
+            我是按钮
+        </button>
+    </div>
+    <script>
+        let vue = new Vue({
+            el:"#app",
+            data:{
+                gender:"man"
+            },
+            methods:{
+                myFn(name,age,e){
+                    console.log(name,age,e);
+                    console.log(this.gender)
+                },
+                myFn1:function(){
+                   console.log("爷爷")
+                },
+                myFn2:function(){
+                    console.log("爸爸")
+                },
+                myFn3:function(){
+                    console.log("儿子")
+                }
+            }
+        })
+    </script>
+</body>
+</html>

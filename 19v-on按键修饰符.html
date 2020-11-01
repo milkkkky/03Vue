@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <input type="text" @keyup.enter="myFn"> -->
+        <!-- <input type="text" @keyup.113="myFn"> -->
+        <input type="text" @keyup.f2="myFn">
+    </div>
+    <script>
+        Vue.config.keyCodes.f2=113
+         let vue = new Vue({
+            el:"#app",
+            data:{
+                gender:"man"
+            },
+            methods:{
+                myFn(){
+                   alert("12")
+                },
+                myFn1:function(){
+                   console.log("爷爷")
+                },
+                myFn2:function(){
+                    console.log("爸爸")
+                },
+                myFn3:function(){
+                    console.log("儿子")
+                }
+            }
+        })
+    </script>
+</body>
+</html>

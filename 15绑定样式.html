@@ -4,37 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="/js/vue.js"></script>
+    <script src="js/vue.js"></script>
     <style>
         *{
-            padding: 0;
             margin: 0;
+            padding: 0;
         }
         .size{
             font-size: 100px;
         }
         .color{
-            color: red;
+            color:red;
         }
         .active{
-            background: blue;
+            background: skyblue;
         }
     </style>
 </head>
 <body>
     <div id="app">
-        <!-- <p :class="['size','color']">我是段落</p> -->
-        <!-- <p :class="[flag?'active':'']">我是段落</p> -->
-        <!-- <p :class="[{'active':false}]">我是段落</p> -->
-        <p :class="obj">123</p>
+        <!-- <p :style="{color:'red','font-size':'100px'}">段落</p> -->
+        <p :style="[obj1,obj2]">段落</p>
     </div>
     <script>
         let vue = new Vue({
             el:"#app",
             data:{
-                flag:false,
-                obj:{
-                    'size':true
+                obj1:{
+                    'color':"red",
+                    "font-size":"100px"
+                },
+                obj2:{
+                    "background-color":"blue"
                 }
             }
         })
