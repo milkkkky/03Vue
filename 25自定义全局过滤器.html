@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--name要经过滤器处理后返回渲染  -->
+        <!-- 只能在插值语法和v-bind中使用 -->
+        <!-- 过滤器可以连续使用 -->
+        <p>{{name |formatStr1|formatStr2}}</p>
+    </div>
+   
+    <script>
+        // 如何自定义全局的过滤器
+        // 通过Vue.filter()
+        // filter接收两个参数
+        // 第一个参数：过滤器名称
+        // 第二个参数：处理数据的函数
+        // 注意点：默认情况下处理数据的函数接收一个参数，就是当前要被处理的数据
+
+        Vue.filter("formatStr1",function(value){
+            value = value.replace(/学院/g,"大学");
+            return value;
+        });
+        Vue.filter("formatStr2",function(value){
+            value = value.replace(/大学/g,"幼儿园");
+            return value;
+        });
+        let vue1 = new Vue({
+            el:"#app",
+            data:{
+               name:"直播渔学院,指趣学院,前端学院,区块链学院",
+               age:18,
+               msg:"abcdef"
+            },
+            methods:{
+                msg1(){
+                    // 多次执行
+                    console.log("1111")
+                    let res="abcdef".split("").reverse().join("");
+                    return res;
+                }
+            },
+            //专门用于定义局部指令
+            directives:{
+               
+            },
+            //专门用于定义计算属性
+            computed:{
+                msg2:function(){
+                    // 执行一次
+                    //不会发生变化，或者频率比较低
+                    console.log("2222")
+                    let res="abcdef".split("").reverse().join("");
+                    return res;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

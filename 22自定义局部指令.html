@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app1">
+        <p v-color="'blue'">我是段落</p>
+        <!-- <input type="text" v-focus> -->
+    </div>
+    <div id="app2">
+        <p v-color="'red'">我是段落</p>
+        <!-- <input type="text" v-focus> -->
+    </div>
+    <script>
+       /** Vue.directive('color', {
+            bind:function(el,obj){
+                //这里的el就是被绑定指令的那个元素
+                console.log(el,obj)
+                el.style.color=obj.value;
+            }
+        });
+        Vue.directive('focus', {
+            inserted:function(el){
+                //这里的el就是被绑定指令的那个元素
+                el.focus();
+            }
+        });**/
+        let vue1 = new Vue({
+            el:"#app1",
+            data:{
+                curColor:'green'
+            },
+            methods:{
+                myFn(){
+                   alert("12")
+                }
+            }
+        })
+        let vue2 = new Vue({
+            el:"#app2",
+            data:{
+                curColor:'green'
+            },
+            methods:{
+                myFn(){
+                   alert("12")
+                }
+            },
+            //专门用于定义局部指令
+            directives:{
+                "color":{
+                    bind:function(el,obj){
+                    //这里的el就是被绑定指令的那个元素
+                    console.log(el,obj)
+                    el.style.color=obj.value;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
