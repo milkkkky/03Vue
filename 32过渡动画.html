@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+        .v-enter{
+            opacity: 0;
+        }
+        .v-enter-to{
+            opacity: 1;
+            margin-left: 500px;
+        }
+        .v-enter-active{
+            transition: all 3s;
+        }
+        /* .two-enter{
+            opacity: 0;
+        }
+        .two-enter-to{
+            opacity: 1;
+            margin-top: 500px;
+        }
+        .two-enter-active{
+            transition: all 3s;
+        } */
+        .v-leave{
+            opacity: 1;
+        }
+        .v-leave-to{
+            opacity: 0;
+        }
+        .v-leave-active{
+            transition: all 3s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="toggle">我是按钮</button>
+        <!-- 
+            注意点：虽然我们是通过js钩子函数来实现过渡动画，
+            但是默认Vue还是会去查找类名，所以为了不让Vue去查找类名，
+            可以给transition添加 v-bind:css="false"
+         -->
+        <transition appear
+                    v-bind:css="false"
+                    v-on:before-enter="beforeEnter"
+                    v-on:enter="enter"
+                    v-on:after-enter="afterEnter">
+            <div class="box" v-show="isShow"></div>
+        </transition>
+    </div>
+    <script>
+       
+         let vue = new Vue({
+            el:"#app",
+            data:{
+                isShow:true
+            },
+            methods:{
+                toggle(){
+                    this.isShow = !this.isShow;
+                },
+                beforeEnter(el){
+                    //进入动画开始之前
+                    el.style.opacity=0;
+                    console.log("beforeEnter");
+                },
+                enter(el,done){
+                    //进入动画执行过程中
+                    console.log("enter");
+                    // 注意点：如果是通过js钩子实现过渡动画
+                    // 那么必须在动画执行过程中的回调函数中写上
+                    //el.offsetWidth/el.offsetHeight
+                    el.offsetWidth;
+                    el.style.transition="all 3s";
+                    // 动画执行完毕后要执行done(),否则后续的钩子函数不会被执行
+                    // done();
+                    //注意点：如果想让元素一进来就有动画，那么最好延迟下再调用done方法
+                    setTimeout(function(){
+                        done();
+                    })
+                },
+                afterEnter(el){
+                    //进入动画执行完毕之后
+                    
+                    console.log("afterEnter");
+                    el.style.opacity=1;
+                    el.style.marginLeft="500px";
+                }
+            }
+        })
+    </script>
+</body>
+</html>
