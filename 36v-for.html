@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+    <!--
+    1.v-for注意点
+    1.1v-for为了提升性能, 在更新已渲染过的元素列表时，会采用“就地复用”策略。
+    也正是因为这个策略, 在某些时刻会导致我们的数据混乱
+    例如: 在列表前面新增了内容
+    1.2为了解决这个问题, 我们可以在渲染列表的时候给每一个元素加上一个独一无二的key
+    v-for在更新已经渲染过的元素列表时, 会先判断key是否相同, 如果相同则复用, 如果不同则重新创建
+
+    2.key属性注意点
+    不能使用index的作为key,因为当列表的内容新增或者删除时index都会发生变化
+-->
+    <div id="app">
+        <form action="">
+            <input type="text" v-model="name">
+            <input type="submit" value="添加" @click.prevent="add">
+        </form>
+        <ul>
+            <li v-for="(person,index) in persons" :key="person.id">
+                <input type="checkbox">
+                <span>{{index}}--{{person.name}}</span>
+            </li>
+        </ul>
+    </div>
+    <script>
+        /**
+        1.v-for在渲染元素的时候，会先查看缓存中有没有需要渲染的元素
+        2.如果缓存中没有需要渲染的元素，就会创建一个新的放到缓存中
+          如果缓存中有需要渲染的元素，就不会创建一个新的，而是直接复用原有的
+        注意：在vue中，只要数据发生了改变，那么就会自动重新渲染
+        */
+        
+        let vue = new Vue({
+            el:'#app',
+            data:{
+                persons:[
+                    {name:"zs",id:"1"},
+                    {name:"ls",id:"2"},
+                    {name:"ww",id:"3"}
+                ],
+                name:"",
+
+            },
+            methods:{
+                add(){
+                    let lastPerson = this.persons[this.persons.length-1];
+                    let newPerson = {name:this.name,id:lastPerson.id + 1};
+                    // this.persons.push(newPerson);
+                    this.persons.unshift(newPerson);
+                    this.name="";
+                }
+            }
+        })
+    </script>
+</body>
+</html>
