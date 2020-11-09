@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+   <!-- 
+      1、组件切换
+      对于普通的元素我们可以通过v-if来实现切换
+      对于组件我们也可以通过v-if来实现切换
+      因为组件的本质就是一个自定义元素
+    -->
+    <div id="app">
+        <button @click="toggle">切换</button>
+        <!-- <p v-if="isShow">我是首页</p>
+        <img v-else src="./images/background.jpg" alt=""> -->
+        <home v-if="isShow"></home>
+        <photo v-else></photo>
+    </div>
+    
+    <template id="home">
+       <div>
+           <p>我是首页</p>
+       </div>
+    </template>
+    <template id="photo">
+        <div>
+            <img src="./images/background.jpg" alt="">
+        </div>
+     </template>
+    <script>
+        
+        //   自定义全局组件
+        Vue.component("home", {
+            template:"#home",          
+            }
+         );
+        Vue.component("photo", {
+            template:"#photo",
+            }
+         );
+        let vue1 = new Vue({
+            el:"#app",
+            data:{
+                isShow:true
+            },
+            methods:{
+                toggle(){
+                    this.isShow = !this.isShow;
+                }
+            },
+            // components:{
+            //     "abc":{
+            //         template:"#info"
+
+            //     }
+            // }
+        })
+        // let vue2 = new Vue({
+        //     el:"#app2",
+        //     data:{
+
+        //     },
+        //     methods:{
+
+        //     },
+        //     components:{
+        //         "abc":{
+        //             template:"#info"
+
+        //         }
+        //     }
+        // })
+    </script>
+</body>
+</html>

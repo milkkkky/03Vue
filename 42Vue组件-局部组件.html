@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+   <!-- 
+       1、自定义全局组件特点
+       在任何一个Vue实例控制的区域中都可以使用
+
+       2、自定义局部组件特点
+       只能在自定义的那个Vue实例控制的区域中可以使用
+
+       3、如何自定义一个局部组件
+       在Vue实例中新增components：{}
+       在{}中通过key/value形式注册组件
+       components：{
+           abc:{}
+       }
+    -->
+    <div id="app1">
+        <abc></abc>
+    </div>
+    <div id="app2">
+        <abc></abc>
+    </div>
+    <template id="info">
+        <div>
+            <img src="images/fm.jpg"/>
+            <p>我是描述信息</p>
+        </div>
+    </template>
+    <script>
+        /**
+        //   自定义全局组件
+        Vue.component("abc", {
+            template:"#info"
+        } );
+       **/
+        let vue1 = new Vue({
+            el:"#app1",
+            data:{
+
+            },
+            methods:{
+
+            }
+        })
+        let vue2 = new Vue({
+            el:"#app2",
+            data:{
+
+            },
+            methods:{
+
+            },
+            components:{
+                "abc":{
+                    template:"#info"
+
+                }
+            }
+        })
+    </script>
+</body>
+</html>

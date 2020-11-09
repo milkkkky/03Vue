@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+   <!-- 
+       1、自定义组件中的data为什么是一个函数
+       因为自定义组件可以复用，为了保证复用时每个组件的数据都是独立的，所以必须是一个函数
+
+    -->
+    <div id="app">
+        <button @click="appFn">我是按钮</button>
+        <p>{{appMessage}}</p>
+        <abc></abc>
+    </div>
+    
+    <template id="info">
+        <div>
+             <button @click="add">累加</button>
+             <p>{{number}}</p>
+            <p>我是描述信息</p>
+        </div>
+    </template>
+    <script>
+        
+        //   自定义全局组件
+        Vue.component("abc", {
+            template:"#info",
+            methods:{
+                add(){
+                    this.number++;
+                }
+            },
+              /*
+        组件中的data如果不是通过函数返回的, 那么多个组件就会公用一份数据, 就会导致数据混乱
+        如果组件中的data是通过函数返回的, 那么每创建一个新的组件, 都会调用一次这个方法
+        将这个方法返回的数据和当前创建的组件绑定在一起, 这样就有效的避免了数据混乱
+        * */
+            data:
+                function(){
+                    return {
+                        number:0
+                    }
+                }                
+            }
+         );
+      
+        let vue1 = new Vue({
+            el:"#app",
+            data:{
+                appMessage:"123"
+            },
+            methods:{
+                appFn(){
+                    alert("appFnS")
+                }
+            },
+            // components:{
+            //     "abc":{
+            //         template:"#info"
+
+            //     }
+            // }
+        })
+        // let vue2 = new Vue({
+        //     el:"#app2",
+        //     data:{
+
+        //     },
+        //     methods:{
+
+        //     },
+        //     components:{
+        //         "abc":{
+        //             template:"#info"
+
+        //         }
+        //     }
+        // })
+    </script>
+</body>
+</html>

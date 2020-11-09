@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+           .v-enter{
+            opacity: 0;
+            margin-left: 500px;
+        }
+        .v-enter-to{
+            opacity: 1;
+            margin-left: 500px;
+        }
+        .v-enter-active{
+            transition: all 3s;
+        }
+        
+        .v-leave{
+            opacity: 1;
+        }
+        .v-leave-to{
+            opacity: 0;
+        }
+        .v-leave-active{
+            transition: all 3s;
+            margin-left: 500px;
+        }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+   <!-- 
+      1.什么是父子组件?
+    在一个组件中又定义了其它组件就是父子组件
+    其实局部组件就是最简单的父子组件, 因为我们说过可以把Vue实例看做是一个大组件
+    我们在Vue实例中定义了局部组件, 就相当于在大组件里面定义了小组件, 所以实局部组件就是最简单的父子组件
+
+    2.如何定义其它的父子组件
+    前面我们说过, 自定义组件中可以使用data, 可以使用methods. 当然自定义组件中也可以使用components
+    所以我们也可以在自定义组件中再定义其它组件
+    -->
+    <div id="app">
+        <!-- <home></home> -->
+        <father>
+           
+        </father>
+    </div>
+    
+    <!-- <template id="home">
+       <div>
+           <p>我是首页</p>
+           <input type="checkbox">
+       </div>
+    </template> -->
+    <template id="father">
+        <div>
+            <p>我是父组件</p>
+            <son></son>
+        </div>
+     </template>
+     <template id="son">
+        <div>
+            <p>我是zi组件</p>
+        </div>
+     </template>
+    <script>
+        /**Vue.component("father",{
+            template:"#father",
+            components:{
+                "son":{
+                    template:"#son", 
+                }
+            }
+        })**/
+        let vue1 = new Vue({
+            el:"#app",
+            data:{
+                isShow:true,
+                name:"home"
+            },
+            methods:{
+                toggle(){
+                    this.isShow = !this.isShow;
+                    this.name = this.name ==="home"?"photo":"home";
+                }
+            },
+            components:{
+                // "home":{
+                //     template:"#home"
+                // }
+                "father":{
+                    template:"#father",
+                    components:{
+                        "son":{
+                            template:"#son", 
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
