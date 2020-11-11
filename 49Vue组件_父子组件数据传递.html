@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>47-Vue组件-父子组件</title>
+    <style>    
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+   <!-- 
+        1、父子组件传递？
+        在Vue中子组件是不能访问父组件的数据的，
+        如果子组件想要访问父组件的数据，必须通过父组件传递
+        2、如何传递
+        2.1 在父组件中通过v-bind传递数据
+            传递格式 v-bind：自定义接收名称 = “要传递数据”
+        2.2 在子组件中通过prop接收数据
+            接收格式 props：["自定义接收名称"]
+    -->
+    <div id="app">
+       <father></father>    
+    </div>
+ 
+    <template id="father">
+        <div>
+            <p>{{name}}</p>
+            <p>{{age}}</p>
+            <son :parentname="name" :abc="age"></son>
+        </div>
+     </template>
+     <template id="son">
+        <div>
+            <p>{{parentname}}</p>
+            <p>{{abc}}</p>
+            <p>我是zi组件</p>
+        </div>
+     </template>
+    <script>
+        Vue.component("father",{
+            template:"#father",
+            data:function(){
+                return {
+                    name:"lnj",
+                    age:33
+                }
+            },
+            components:{
+                "son":{
+                    template:"#son", 
+                    props:["parentname","abc"]
+                }
+            }
+        })
+        let vue1 = new Vue({
+            el:"#app",
+            data:{
+                isShow:true,
+                name:"home"
+            },
+            methods:{
+                toggle(){
+                    this.isShow = !this.isShow;
+                    this.name = this.name ==="home"?"photo":"home";
+                }
+            },
+            // components:{
+            //     // "home":{
+            //     //     template:"#home"
+            //     // }
+            //     "father":{
+            //         template:"#father",
+            //         components:{
+            //             "son":{
+            //                 template:"#son", 
+            //             }
+            //         }
+            //     }
+            // }
+        })
+    </script>
+</body>
+</html> 
