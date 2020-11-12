@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>50-Vue组件-父子组件</title>
+    <style>    
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+   <!-- 
+        1.父子组件方法传递?
+        在Vue中子组件是不能访问父组件的方法的,
+        如果子组件想要访问父组件的方法, 必须通过父组件传递
+
+        2.如何传递方法
+        2.1在父组件中通过v-on传递方法
+            传递格式 v-on:自定义接收名称 = "要传递方法"
+        2.2在子组件中自定义一个方法
+        2.3在自定义方法中通过 this.$emit('自定义接收名称');触发传递过来的方法
+-->
+    -->
+    <div id="app">
+       <father></father>    
+    </div>
+ 
+    <template id="father">
+        <div>
+            <button @click="say">我是按钮</button>
+            <son @parentsay="say"></son>
+        </div>
+     </template>
+     <template id="son">
+        <div>
+            <button @click="sonFn">我是按钮</button>
+            <p>我是zi组件</p>
+        </div>
+     </template>
+    <script>
+        Vue.component("father",{
+            template:"#father",
+            methods:{
+                say(){
+                    alert("123")
+                }
+            },
+            components:{
+                "son":{
+                    template:"#son", 
+                     /*
+                注意点: 和传递数据不同, 如果传递的是方法, 那么在子组件中不需要接收
+                        如果传递的是方法, 那么需要在子组件中自定义一个方法
+                        如果传递的是方法, 那么在子组件中直接使用自定义的方法即可
+                        如果传递的是方法, 那么需要在子组件自定义的方法中通过
+                        this.$emit("自定义接收的名称")的方法来触发父组件传递过来的方法
+                * */
+                    methods:{
+                        sonFn(){
+                            this.$emit("parentsay")
+                        }
+                    }
+                }
+            }
+        })
+        let vue1 = new Vue({
+            el:"#app",
+            data:{
+                isShow:true,
+                name:"home"
+            },
+            methods:{
+                toggle(){
+                    this.isShow = !this.isShow;
+                    this.name = this.name ==="home"?"photo":"home";
+                }
+            },
+            // components:{
+            //     // "home":{
+            //     //     template:"#home"
+            //     // }
+            //     "father":{
+            //         template:"#father",
+            //         components:{
+            //             "son":{
+            //                 template:"#son", 
+            //             }
+            //         }
+            //     }
+            // }
+        })
+    </script>
+</body>
+</html> 

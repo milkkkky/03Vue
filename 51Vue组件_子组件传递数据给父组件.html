@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>51-Vue组件-父子组件</title>
+    <style>    
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <!--
+        1.如何将子组件数据传递给父组件
+        既然我们可以将父组件的方法传递给子组件
+        既然我们可以在子组件中调用父组件中的方法,
+        那么我们就可以在调用方法的时候给方法传递参数
+        传递的参数, 就是我们需要传递的数据
+    -->
+   
+    <div id="app">
+       <father></father>    
+    </div>
+ 
+    <template id="father">
+        <div>
+            <button @click="say">我是按钮</button>
+            <son @parentsay="say"></son>
+        </div>
+     </template>
+     <template id="son">
+        <div>
+            <button @click="sonFn">我是按钮</button>
+            <p>我是zi组件</p>
+        </div>
+     </template>
+    <script>
+        Vue.component("father",{
+            template:"#father",
+            methods:{
+                say(data){
+                    alert("123")
+                    console.log(data)
+                }
+            },
+            components:{
+                "son":{
+                    template:"#son", 
+                    methods:{
+                        sonFn(){
+                            // 第一个参数: 需要调用的函数名称
+                            // 后续的参数: 给调用的函数传递的参数
+                            this.$emit("parentsay","123")
+                        }
+                    }
+                }
+            }
+        })
+        let vue1 = new Vue({
+            el:"#app",
+            data:{
+                isShow:true,
+                name:"home"
+            },
+            methods:{
+                toggle(){
+                    this.isShow = !this.isShow;
+                    this.name = this.name ==="home"?"photo":"home";
+                }
+            },
+            // components:{
+            //     // "home":{
+            //     //     template:"#home"
+            //     // }
+            //     "father":{
+            //         template:"#father",
+            //         components:{
+            //             "son":{
+            //                 template:"#son", 
+            //             }
+            //         }
+            //     }
+            // }
+        })
+    </script>
+</body>
+</html> 

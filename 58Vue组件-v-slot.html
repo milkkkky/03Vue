@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<!--
+在 2.6.0 中，我们为具名插槽和作用域插槽引入了一个新的统一的语法 (即 v-slot 指令)。
+它取代了 slot 和 slot-scope
+
+也就是说我们除了可以通过v-slot指令告诉Vue内容要填充到哪一个具名插槽中
+还可以通过v-slot指令告诉Vue如何接收作用域插槽暴露的数据
+
+v-slot:插槽名称="作用域名称"
+-->
+    <div id="app">
+        <father></father>
+    </div>
+    
+    <template id="father">
+        <div>
+            <son>
+                <!-- <div>内容</div> -->
+                <!--
+                    slot-scope="abc"作用: 接收子组件插槽暴露的数据
+                    -->
+                <!--
+                    作用域插槽的应用场景: 子组件提供数据, 父组件决定如何渲染
+                -->
+                <!-- <template slot-scope="abc">
+                    <div>内容{{abc.names}}</div> 
+                    <li v-for="(name, index) in abc.names">{{name}}</li>
+                </template> -->
+                <!-- <template v-slot:default="abc">
+                    <li v-for="(name, index) in abc.names">{{name}}</li>
+                </template> -->
+                <template #one="abc">
+                    <li v-for="(name, index) in abc.names">{{name}}</li>
+                </template>
+            </son>
+        </div>
+     </template>
+     <template id="son">
+        <div>
+            <div>头部{{names}}</div>
+            <!--
+            v-bind:names="names"作用: 将当前子组件的names数据暴露给父组件
+            -->
+            <!-- <slot v-bind:names="names">{{names}}</slot> -->
+            <slot name="one" v-bind:names="names">{{names}}</slot>
+            <slot></slot>
+            <div>底部</div>
+        </div>
+     </template>
+    <script>
+        Vue.component("father",{
+            template:"#father",
+            components:{
+                "son":{
+                    template:"#son", 
+                }
+            }
+        })
+        let vue = new Vue({
+            el:"#app",
+            data:{
+                isShow:true,
+                name:"home"
+            },
+            methods:{
+                toggle(){
+                    this.isShow = !this.isShow;
+                    this.name = this.name ==="home"?"photo":"home";
+                }
+            },
+            components:{
+                "father":{
+                    template:"#father",
+                    components: {
+                        "son": {
+                            template: "#son",
+                            data:function () {
+                                return {
+                                    names: ["zs", "ls", "ww", "zl"]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

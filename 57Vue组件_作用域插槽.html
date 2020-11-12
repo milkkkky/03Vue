@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+<!--
+1.什么是作用域插槽
+作用域插槽就是带数据的插槽, 就是让父组件在填充子组件插槽内容时也能使用子组件的数据
+
+2.如何使用作用域插槽
+2.1在slot中通过 v-bind:数据名称="数据名称" 方式暴露数据
+2.2在父组件中通过 <template slot-scope="作用域名称"> 接收数据
+2.3在父组件的<template></template>中通过 作用域名称.数据名称 方式使用数据
+-->
+    <div id="app">
+        <father></father>
+    </div>
+    
+    <template id="father">
+        <div>
+            <son>
+                <!-- <div>内容</div> -->
+                <!--
+                    slot-scope="abc"作用: 接收子组件插槽暴露的数据
+                    -->
+                <!--
+                    作用域插槽的应用场景: 子组件提供数据, 父组件决定如何渲染
+                -->
+                <template slot-scope="abc">
+                    <!-- <div>内容{{abc.names}}</div> -->
+                    <li v-for="(name, index) in abc.names">{{name}}</li>
+                </template>
+            </son>
+        </div>
+     </template>
+     <template id="son">
+        <div>
+            <div>头部{{names}}</div>
+            <!--
+            v-bind:names="names"作用: 将当前子组件的names数据暴露给父组件
+            -->
+            <slot v-bind:names="names">{{names}}</slot>
+            <slot></slot>
+            <div>底部</div>
+        </div>
+     </template>
+    <script>
+        Vue.component("father",{
+            template:"#father",
+            components:{
+                "son":{
+                    template:"#son", 
+                }
+            }
+        })
+        let vue = new Vue({
+            el:"#app",
+            data:{
+                isShow:true,
+                name:"home"
+            },
+            methods:{
+                toggle(){
+                    this.isShow = !this.isShow;
+                    this.name = this.name ==="home"?"photo":"home";
+                }
+            },
+            components:{
+                "father":{
+                    template:"#father",
+                    components: {
+                        "son": {
+                            template: "#son",
+                            data:function () {
+                                return {
+                                    names: ["zs", "ls", "ww", "zl"]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
